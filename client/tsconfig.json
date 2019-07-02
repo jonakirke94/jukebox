@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+			"sourceMap": true,
+			"strict": true,
+			"module": "esnext",
+			"moduleResolution": "node",
+			"target": "esnext",
+			"noImplicitAny": false,
+			"experimentalDecorators": true,
+			"strictPropertyInitialization": false,
+			"strictNullChecks": false
+	},
+	"compileOnSave": false,
+	"atom": {
+			"rewriteTsconfig": false
+	}
+}
