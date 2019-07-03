@@ -5,6 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
+
 module.exports = {
 	entry: path.join(path.resolve(__dirname, 'src'), 'index.ts'),
 	output: {

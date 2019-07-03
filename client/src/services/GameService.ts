@@ -1,13 +1,10 @@
-import { Game } from "../model/Game";
+const axios = require('axios');
 
 class GameService {
 	static baseUrl = 'http://localhost:3000';
 
-	static generateGame() {
-		return new Promise( (resolve, reject) => {
-			const game = new Game();
-			resolve(game);
-		});
+	static test() {
+		return axios.get(this.baseUrl + '/game') 
 	}
 }
 
