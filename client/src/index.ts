@@ -5,10 +5,10 @@ import VueRouter from 'vue-router';
 import App from './pages/App.vue';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faMusic, faListOl, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faMusic, faListOl, faPlus, faPause, faPlay, faHeart, faVolumeUp, faVolumeDown, faVolumeOff } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-
+import VueYouTubeEmbed from 'vue-youtube-embed'
+import { store } from './store/store';
 
 declare module 'vue/types/vue' {
 	interface Vue {
@@ -16,14 +16,17 @@ declare module 'vue/types/vue' {
 	}
 }
 
-library.add(faMusic);
-library.add(faListOl)
-library.add(faPlus)
+const icons = [faMusic, faListOl, faPlus, faPause, faPlay, faHeart, faVolumeUp, faVolumeDown, faVolumeOff]
+library.add(...icons);
 
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.use(VueRouter);
+Vue.use(VueYouTubeEmbed, { global: true });
+
+import 'filters/time';
 
 const vm = new Vue({
+	store,
 	router: new VueRouter({
 		routes: [
 			{
@@ -39,7 +42,7 @@ const vm = new Vue({
 			return { x: 0, y: 0 };
 		},
 		mode: 'history',
-	}),
+	})
 });
 
 vm.$mount('#app-container');

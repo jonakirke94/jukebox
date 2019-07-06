@@ -3,7 +3,7 @@ const express = require('express');
 
 const app = express();
 const bodyParser = require('body-parser');
-const routes = require('./routes/game');
+const routes = require('./routes/stream');
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 });
 
 
-app.use('/game', routes);
+app.use('/stream', routes);
 
 app.use((_req, _res, next) => {
 	const error = new Error('Not Found');

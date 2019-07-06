@@ -1,7 +1,7 @@
 <template>
 	<nav>
-		<ul>
-			<router-link tag="li" to="/" exact-active-class="active">
+		<ul>			
+		<router-link tag="li" to="/" exact-active-class="active">
 				<font-awesome-icon icon="music" />
 				<span class="label">Player</span>
 			</router-link>
@@ -24,6 +24,10 @@ import Component from 'vue-class-component';
 @Component({})
 export default class NavBar extends Vue {
 	
+	changeComponent(route: string) {
+		console.log('changing component..', route)
+			this.$emit('link', route);
+	}
 }
 
 </script>

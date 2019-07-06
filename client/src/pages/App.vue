@@ -4,11 +4,11 @@
 			
 
 			<div class="container">
-					<!-- <div class="title">JUKEBOX!</div> -->
+					<youtube player-width="0" player-height="0" :video-id="id" :player-vars="options" @ready="ready" @playing="playing" @ended="ended"></youtube>
 
 					<navbar> </navbar>
-			
-        	<router-view></router-view>
+
+					<router-view></router-view>
 			</div>
 
 		</main>
@@ -18,45 +18,83 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Component from 'vue-class-component';
+import Component, {mixins } from 'vue-class-component';
 import NavBar from '../components/NavBar.vue';
-import Player from '../components/Player.vue';
-import Queue from '../components/Queue.vue';
-import Add from '../components/Add.vue';
+import Player from './Player.vue';
+import Queue from './Queue.vue';
+import Add from './Add.vue';
+import { EventBus } from '../EventBus';
+import { mapGetters, mapMutations, mapState } from "vuex";
 
-import GameService from '../services/GameService';
+import AudioService from '../services/AudioService';
 
 @Component({
 	components: {
 		navbar: NavBar,
 		Player,
 		Queue,
-		Add
+		Add,
+	},
+	computed: {
+		...mapState(['player']),
 	}
 })
 export default class App extends Vue {
-	name = 'fake';
-	
+	id: string = 'qh9TIYXKSFk';
+	options:any = {
+			autoplay: 0,
+			controls: 1,
+			disablekb: 1,
+			modestbranding: 0,
+	};
+
+	//player: any;
+
 	created() {
-		GameService.test().then(res => {
-			 console.log('res', res);
-			 this.name = res.data.hello;
-		})
+		EventBus.$on('play', () => {
+				EventBus.player.playVideo();
+		});
+
+		EventBus.$on('pause', () => {
+				EventBus.player.pauseVideo();
+		});
+
+		EventBus.$on('mute', () => {
+			const ytb = EventBus.player;
+			ytb.isMuted() ? ytb.unMute() : ytb.mute();
+		});
 	}
-	
+
+	playing() {
+		EventBus.$emit('playing');
+	}
+
+	ready(e: any) {
+		this.$store.commit('setPlayer', e.target)
+		EventBus.player = e.target;
+	}
+
+		
+	ended() {
+		console.log('ended');
+	}
+
+
+
+
 }
 
 App.prototype.routes = [
 	{
-		path: '',
+		path: '/',
 		component: Player,
 	},
 	{
-		path: 'queue',
+		path: '/queue',
 		component: Queue,
 	},
 	{
-		path: 'add',
+		path: '/add',
 		component: Add,
 	},
 ];
