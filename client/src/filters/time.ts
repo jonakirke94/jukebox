@@ -5,8 +5,8 @@ Vue.filter('time', (value:number) => {
 		let minutes = Math.floor(value / 60);
 		let seconds = value - minutes * 60;
 
-		seconds = seconds < 10 ? 0 + seconds : seconds;
-		minutes = minutes < 10 ? 0 + minutes : minutes;
+		const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
+		const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
 
-		return minutes + ':' + seconds;
+		return formattedMinutes + ':' + formattedSeconds;
 });

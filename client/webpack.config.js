@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 
 module.exports = {
@@ -81,6 +82,7 @@ module.exports = {
 			template: path.join(path.resolve(__dirname, 'src'), 'index.html'),
 			inject: true,
 		}),
+		new CopyWebpackPlugin([{ from: 'src/assets', to: 'assets' }]),
 		new webpack.HashedModuleIdsPlugin(),
 		new CleanWebpackPlugin(['dist']),
 	],

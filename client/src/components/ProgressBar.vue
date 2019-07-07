@@ -1,15 +1,15 @@
 <template>
-	<div class="progress-bar">
-
-		<div class="filled-bar" :style="{ transform: `translate3d(-${(1 - value) * 100}%, 0, 0)` }">
-
+  <div class="progress-bar-container">
+		<div class="progress-bar">
+			<div class="filled-bar" :style="{ transform: `translate3d(-${(1 - value) * 100}%, 0, 0)` }"></div>
 		</div>
 
-
-		{{currentTime | time}}
-		{{duration | time}}
-
+		<div class="timers">
+			<span>{{currentTime | time}}</span>			
+			<span>{{duration | time}}</span>	
+		</div>
 	</div>
+
 </template>
 
 <script lang="ts">
@@ -46,19 +46,29 @@ export default class ProgressBar extends Vue {
 <style lang="scss">
 
 
+.progress-bar-container {
+	position: relative;
+  height: 25px;
+  width: 80%;
+}
+
 .progress-bar {
   position: relative;
-  height: 30px;
+  height: 5px;
   width: 100%;
+	margin-bottom: .5rem;
   border-bottom: 1px solid #f0f0f0;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  border-radius: 3px 3px 0 0;
-}
-
-
+	}
+	.timers {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	
 .filled-bar {
   position: absolute;
   top: 0;
@@ -66,7 +76,7 @@ export default class ProgressBar extends Vue {
   z-index: 2;
   height: 100%;
   width: 100%;
-  background: #eef0ff;
+  background: #cc2030;
 }
 
 

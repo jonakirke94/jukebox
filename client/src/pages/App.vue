@@ -27,6 +27,7 @@ import { EventBus } from '../EventBus';
 import { mapGetters, mapMutations, mapState } from "vuex";
 
 import AudioService from '../services/AudioService';
+import { VideoState } from '../model/videoState';
 
 @Component({
 	components: {
@@ -52,30 +53,40 @@ export default class App extends Vue {
 
 	created() {
 		EventBus.$on('play', () => {
-				EventBus.player.playVideo();
+			  this.$store.commit('setVideoState', VideoState.loading);
+				this.$store.state.player.playVideo();
 		});
 
 		EventBus.$on('pause', () => {
-				EventBus.player.pauseVideo();
+			  this.$store.commit('setVideoState', VideoState.paused);
+				this.$store.state.player.pauseVideo();
 		});
 
-		EventBus.$on('mute', () => {
-			const ytb = EventBus.player;
-			ytb.isMuted() ? ytb.unMute() : ytb.mute();
+		EventBus.$on('setVolume', (value) => {
+			this.$store.state.player.setVolume(value);
 		});
+
+
 	}
 
 	playing() {
 		EventBus.$emit('playing');
+		this.$store.commit('setVideoState', VideoState.playing);
+
 	}
 
 	ready(e: any) {
 		this.$store.commit('setPlayer', e.target)
-		EventBus.player = e.target;
+		const title = this.$store.state.player.getVideoData().title;
+		this.$store.commit('setTitle', title);
 	}
 
 		
 	ended() {
+		EventBus.$emit('ended');
+
+		this.$store.commit('setTitle', '');
+		this.$store.commit('setVideoState', VideoState.emptyQueue);
 		console.log('ended');
 	}
 
