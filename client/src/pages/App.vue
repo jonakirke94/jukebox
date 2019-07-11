@@ -8,6 +8,8 @@
 
 					<navbar> </navbar>
 
+					Connected: {{isConnected}}
+
 					<router-view></router-view>
 			</div>
 
@@ -26,7 +28,6 @@ import Add from './Add.vue';
 import { EventBus } from '../EventBus';
 import { mapGetters, mapMutations, mapState } from "vuex";
 
-import AudioService from '../services/AudioService';
 import { VideoState } from '../model/videoState';
 
 @Component({
@@ -37,7 +38,7 @@ import { VideoState } from '../model/videoState';
 		Add,
 	},
 	computed: {
-		...mapState(['player']),
+		...mapState(['player', 'isConnected']),
 	}
 })
 export default class App extends Vue {
@@ -121,7 +122,7 @@ body {
 	margin: 0;
 
 		&:before {
-			background: #cc2030;
+			background: #cc2030;			
 			content: " ";
 			display: block;
 			height: 264px;

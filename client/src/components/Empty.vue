@@ -7,9 +7,7 @@
 		
 		<div class="add-link">
 				<span>It's so quiet in here..</span>				
-				<router-link to="add">
-					<a class="link">Add song</a>
-				</router-link>				
+				<router-link tag="a" class="link" to="/add">Add song</router-link>				
 		</div>
 
 

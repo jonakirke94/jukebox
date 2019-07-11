@@ -1,7 +1,21 @@
-const http = require('http');
-const app = require('./app');
+/* const app = require('./app');
 
 const PORT = 3000;
-const server = http.createServer(app);
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
-server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+const songRoutes = require('./routes/song')(io);
+
+app.use('/song', songRoutes);
+
+server.listen(PORT, () => {
+	console.log(`Listening on ${PORT}`);
+
+	io.on('connect', (socket) => {
+
+		socket.on('disconnect', () => {
+			console.log('client disconnected');
+		});
+	});
+});
+ */

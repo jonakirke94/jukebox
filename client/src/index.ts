@@ -3,17 +3,23 @@ import './styles/main.scss';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './pages/App.vue';
+import VueYouTubeEmbed from 'vue-youtube-embed';
+import { store } from './store/store';
+
+import VueSocketio from 'vue-socket.io-extended';
+import io from 'socket.io-client';
+
+Vue.use(VueSocketio, io('http://localhost:3000'), { store });
+
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faMusic, faListOl, faPlus, faPause, faPlay, faHeart, faVolumeUp, faVolumeDown, faVolumeOff, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import VueYouTubeEmbed from 'vue-youtube-embed'
-import { store } from './store/store';
 
 declare module 'vue/types/vue' {
 	interface Vue {
 			routes: any[];
-	}
+		}
 }
 
 const icons = [faMusic, faListOl, faPlus, faPause, faPlay, faHeart, faVolumeUp, faVolumeDown, faVolumeOff, faSpinner]
@@ -26,6 +32,14 @@ Vue.use(VueYouTubeEmbed, { global: true });
 import 'filters/time';
 
 const vm = new Vue({
+	sockets: {
+		connect() {
+			console.log('connect was called from index.ts');        
+		},
+		disconnected() {
+			console.log('disconnect was called');        
+		}
+	},
 	store,
 	router: new VueRouter({
 		routes: [

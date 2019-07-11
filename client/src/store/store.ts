@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { VideoState } from "../model/videoState";
-import { stat } from "fs";
 
 
 Vue.use(Vuex);
@@ -11,6 +10,8 @@ export const store = new Vuex.Store({
 		player: null as any,
 		videoState: 3 as VideoState,
 		videoTitle: '',
+		isConnected: false,
+    currentVideo: null,
 	},
   getters: {
 		player(state: any) {
@@ -29,6 +30,17 @@ export const store = new Vuex.Store({
 		},
 		setTitle(state, title: string) {
 			state.videoTitle = title;
-		}
+		},
+		SOCKET_NEW_VIDEO(state, video: any) {
+			console.log('video in store');
+			state.currentVideo = video;
+		},
+		ADD_VIDEO(state, video: any) {
+			console.log('add_video in store');
+			state.currentVideo = video;
+		},
+		SOCKET_CONNECT(state, status) {
+      state.isConnected = true;
+    }
 	},
 });

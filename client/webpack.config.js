@@ -15,6 +15,7 @@ module.exports = {
 	},
 	devServer: {
 		open: true,
+		historyApiFallback: true,
 	},
 	resolve: {
 		extensions: ['.js', '.ts', '.scss'],

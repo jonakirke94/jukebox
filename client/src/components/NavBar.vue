@@ -24,10 +24,7 @@ import Component from 'vue-class-component';
 @Component({})
 export default class NavBar extends Vue {
 	
-	changeComponent(route: string) {
-		console.log('changing component..', route)
-			this.$emit('link', route);
-	}
+
 }
 
 </script>
